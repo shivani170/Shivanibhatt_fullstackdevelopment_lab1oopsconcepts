@@ -1,9 +1,10 @@
 package lab1oops;
 import java.security.SecureRandom;
+import java.util.Scanner;
 
 class Employee {
 	String firstName, lastName;
-	String dept[] = new String[] {"Technical", "Admin", "Human Resource", "Legal"};
+	
 	String deptName,companyName;
 	
 	public Employee(String firstName, String lastName) {
@@ -28,7 +29,7 @@ class Employee {
 		return this.deptName;
 	}
 	public String getCompanyName() {
-		return this.deptName;
+		return this.companyName;
 	}
 	
 	
@@ -42,13 +43,15 @@ class CredentialService {
 		this.emp = emp;
 	}
 	public String generateRandomPassword() {
-		int length = 12; // Adjust the length of the password as needed
+		int length = 8; // Adjust the length of the password as needed
         String password = generatePassword(length);
         return password;
 	}
 	
 	public void displayGeneratedCredentials() {
-		
+		System.out.println("Dear " + emp.firstName + " your generated credentials are as follows");
+		System.out.println("Email \t\t --> \t " + this.generateEmail());
+		System.out.println("Password \t\t --> \t " + this.generateRandomPassword());
 	}
 	public String generateEmail () {
 //		Generate an email with the following syntax
@@ -103,6 +106,25 @@ public class ITSupport {
 
 	public ITSupport() {
 		// TODO Auto-generated constructor stub
+
+	}
+	
+	public static void main(String args[]) {
+		String dept[] = new String[] {"Technical", "Admin", "Human Resource", "Legal"};
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter the department name : ");
+		System.out.println("1. Technical \n2. Admin\n3. Human Resource\n4. Legal");
+		
+		int deptIndex = sc.nextInt();
+		
+		Employee emp = new Employee("Harshit", "Sharma");
+		emp.setDeptName(dept[deptIndex - 1]);
+		emp.setCompanyName("CompanyName");
+		
+		CredentialService cs = new CredentialService(emp);
+		
+		cs.displayGeneratedCredentials();
 		
 	}
 
